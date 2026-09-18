@@ -48,7 +48,6 @@ class StripeAdapter(PaymentProcessor):
         self._stripe = stripe
 
     def pay(self, amount: float) -> str:
-        # Round before converting to avoid truncating floating-point imprecision.
         cents = round(amount * 100)
         self._stripe.charge_cents(cents)
         return f"paid {amount:.2f} EUR via stripe ({self._stripe.merchant_id})"
